@@ -14,10 +14,23 @@
     </head>
     <body>
         <h1>Hello</h1>
-        <form action = "/predict" method = "POST" enctype="multipart/form-data">
+        <form action = "/" method = "POST" enctype=multipart/form-data>
         <label for="myfile">Select a file:</label>
-        <input type="file" id="file" name="file">
+        <input type="file" name="file">
         <p><input type = "submit" value = "submit" /></p>
+
+        {% if filename %}
+            <div>
+                <img src="{{url_for('static', filename=filename)}}" alt="User Image"/>
+                
+            </div>
+        {% endif %}
+        {% if prediction %}
+            <div>
+                <p>Prediction is {{prediction}}</p>
+                
+            </div>
+        {% endif %}
 
         <script src="" async defer></script>
     </form>
