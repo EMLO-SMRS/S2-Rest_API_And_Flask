@@ -7,9 +7,8 @@ import os
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'static'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+APP_ROOT = f"{os.path.dirname(os.path.abspath(__file__))}/static"
+app.config['UPLOAD_FOLDER'] = APP_ROOT
 
 class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -33,9 +32,11 @@ def home():
 
         try:
             filename = secure_filename(file.filename)
-            file.save(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'], filename))
+            if not os.path.isdir(app.config['UPLOAD_FOLDER']):
+                os.mkdir(app.config['UPLOAD_FOLDER'])
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             print(f"file saved {filename}")
-            file = open(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER'], filename), 'rb')
+            file = open(os.path.join(app.config['UPLOAD_FOLDER'], filename), 'rb')
             img_bytes = file.read()
             tensor = transform_image(img_bytes)
             prediction = get_prediction(tensor)
