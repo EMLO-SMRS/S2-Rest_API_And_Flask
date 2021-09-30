@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = 'app/static'
+UPLOAD_FOLDER = 'static'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
