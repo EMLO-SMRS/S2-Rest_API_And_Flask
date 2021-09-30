@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template
-from torch_utils import transform_image, get_prediction
+from app.torch_utils import transform_image, get_prediction
 from werkzeug.utils import secure_filename
 from PIL import Image
 import copy
