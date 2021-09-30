@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template
-from app.torch_utils import transform_image, get_prediction
+from torch_utils import transform_image, get_prediction
 from werkzeug.utils import secure_filename
 from PIL import Image
 import copy
@@ -21,16 +21,18 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
-        print(request.files['file'])
+        if request.form.get("clear"):
+            return render_template("home.html")
         file = request.files.get('file')
-
+    
         
         if file is None or file.filename == "":
-            return jsonify({'error': 'no file'})
+            return render_template("home.html", error = "No File uploaded.")
         if not allowed_file(file.filename):
-            return jsonify({'error': 'format not supported'})
+            return render_template("home.html", error = "Only png, jpg and jpeg file formats are supported.")
 
         try:
+            
             filename = secure_filename(file.filename)
             if not os.path.isdir(app.config['UPLOAD_FOLDER']):
                 os.mkdir(app.config['UPLOAD_FOLDER'])
@@ -44,8 +46,8 @@ def home():
             data = {'prediction': prediction.item(), 'class_name': class_name}
             return render_template("home.html", filename = f"{filename}", prediction = class_name)
         except Exception as e:
-            print(e )
-            return jsonify({'error': 'error during prediction'})
+            error = "Error in the process"
+            return render_template("home.html", error = "Some Error in the process.")
     return render_template("home.html")
 
 @app.route('/predict', methods=['POST'])
