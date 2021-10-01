@@ -11,9 +11,9 @@
 |    | Description   | value                                                                |
 |---:|:--------------|:---------------------------------------------------------------------|
 |  0 | Model         | Resnet 18(Pretrained)                                                |
-|  1 | Optimiser     | SGD                                                                  |
-|  2 | Loss function | Cross Entropy(lr=0.001, momentum=0.9)                                |
-|  3 | Class Names   | airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck |
+|  1 | Optimiser     | SGD (lr=0.001, momentum=0.9)                                         |
+|  2 | Loss function | Cross Entropy                                                        |
+|  3 | Total Epoch Trained | 30 |
 ## Training
 |    |   epoch |   train_accuracy |   train_loss |   test_accuracy |   test_loss |   airplane |   automobile |   bird |   cat |   deer |   dog |   frog |   horse |   ship |   truck |
 |---:|--------:|-----------------:|-------------:|----------------:|------------:|-----------:|-------------:|-------:|------:|-------:|------:|-------:|--------:|-------:|--------:|
